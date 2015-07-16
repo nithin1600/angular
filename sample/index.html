@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="store" >
+<head>
+	<meta charset="UTF-8">
+	<title>Matt's Burger Joint</title>
+	<link rel="stylesheet" href="style.css">
+	
+	<!-- ANGULAR NEEDS TO BE FIRST -->
+	<script src="angular.js"></script>
+
+	<script src="menu.js"></script>
+	<script src="app.js"></script>
+
+</head>
+<body>
+	<div class="wrapper">
+		<h1>Matt's Burger Joint</h1>
+		<h2>About us</h2>
+		<p>Basic listing of  burgers.</p>
+		<h2>Our Burgers</h2>
+		<div class="burger-list" ng-controller="menuController as Menu">
+
+			<div ng-repeat="Burger in Menu.menu" class="burger clearfix" ng-controller="imageController as imageCtrlr">
+				<div class="half left">
+					<h3>{{Burger.name | uppercase}}</h3>
+					<p>Price: {{Burger.price | currency}}</p>
+					<p>Calories: {{Burger.calories}}kCal</p>
+					<p>Fat: {{Burger.fat}}</p>
+					<p>Carbs: {{Burger.carbs}}</p>
+					<p>Protein: {{Burger.protein}}</p>
+					<button ng-click="imageCtrlr.hidden = !imageCtrlr.hidden">{{imageCtrlr.hidden ? 'Show Me' : 'Hide me'}}</button>
+				</div>
+				<div ng-hide="imageCtrlr.hidden" class="half right">
+					<img class="full" ng-src="{{Burger.images[imageCtrlr.selected]}}">
+					<!-- first image -->
+					<img class="thumb"
+					ng-class="{selected:imageCtrlr.selected === 0}"
+					ng-click="imageCtrlr.setSelected(0)" 
+					ng-src="{{Burger.images[0]}}">
+					<!-- second image -->
+					<img class="thumb"
+					ng-class="{selected:imageCtrlr.selected === 1}"
+					ng-click="imageCtrlr.setSelected(1)" 
+					ng-src="{{Burger.images[1]}}">
+					<!-- third image -->
+					<img class="thumb"
+					ng-class="{selected:imageCtrlr.selected === 2}"
+					ng-click="imageCtrlr.setSelected(2)" 
+					ng-src="{{Burger.images[2]}}">
+				</div>
+			</div>	
+		</div>
+	</div>
+</body>
+</html>
